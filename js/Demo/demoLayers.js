@@ -25,8 +25,8 @@ addLayer("c", {
         roundUpCost: false, // True if the cost needs to be rounded up (use when baseResource is static?)
 
         // For normal layers, gain beyond [softcap] points is put to the [softcapPower]th power
-        softcap: new Decimal(1e100), 
-        softcapPower: new Decimal(0.5), 
+        softcap: new Decimal(1e100),
+        softcapPower: new Decimal(0.5),
         canBuyMax() {}, // Only needed for static layers with buy max
         gainMult() { // Calculate the multiplier for main currency from bonuses
             mult = new Decimal(1)
@@ -68,11 +68,11 @@ addLayer("c", {
                 toggles: [
                     ["c", "beep"], // Each toggle is defined by a layer and the data toggled for that layer
                     ["f", "boop"]],
-                style() {                     
+                style() {
                     if(hasMilestone(this.layer, this.id)) return {
-                        'background-color': '#1111DD' 
+                        'background-color': '#1111DD'
                 }},
-        
+
                 },
         },
         challenges: {
@@ -96,7 +96,7 @@ addLayer("c", {
                 rewardDescription: "Says hi",
                 onComplete() {console.log("hiii")} // Called when you complete the challenge
             },
-        }, 
+        },
         upgrades: {
             rows: 2,
             cols: 3,
@@ -111,7 +111,7 @@ addLayer("c", {
                 cost: new Decimal(1),
                 unlocked() { return (hasUpgrade(this.layer, 11))},
                 effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
-                    let ret = player[this.layer].points.add(1).pow(player[this.layer].upgrades.includes(24)?1.1:(player[this.layer].upgrades.includes(14)?0.75:0.5)) 
+                    let ret = player[this.layer].points.add(1).pow(player[this.layer].upgrades.includes(11)?1.1:(player[this.layer].upgrades.includes(11)?0.75:0.5))
                     if (ret.gte("1e20000000")) ret = ret.sqrt().times("1e10000000")
                     return ret;
                 },
@@ -124,11 +124,11 @@ addLayer("c", {
                 },
                 style() {
                     if (hasUpgrade(this.layer, this.id)) return {
-                    'background-color': '#1111dd' 
+                    'background-color': '#1111dd'
                     }
                     else if (!canAffordUpgrade(this.layer, this.id)) {
                         return {
-                            'background-color': '#dd1111' 
+                            'background-color': '#dd1111'
                         }
                     } // Otherwise use the default
                 },
@@ -168,7 +168,7 @@ addLayer("c", {
                     let eff = {}
                     if (x.gte(0)) eff.first = Decimal.pow(25, x.pow(1.1))
                     else eff.first = Decimal.pow(1/25, x.times(-1).pow(1.1))
-                
+
                     if (x.gte(0)) eff.second = x.pow(0.8)
                     else eff.second = x.times(-1).pow(0.8).times(-1)
                     return eff;
@@ -179,12 +179,12 @@ addLayer("c", {
                     Amount: " + player[this.layer].buyables[this.id] + "\n\
                     Adds + " + format(data.effect.first) + " things and multiplies stuff by " + format(data.effect.second)
                 },
-                unlocked() { return player[this.layer].unlocked }, 
+                unlocked() { return player[this.layer].unlocked },
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
-                buy() { 
+                buy() {
                     cost = tmp[this.layer].buyables[this.id].cost
-                    player[this.layer].points = player[this.layer].points.sub(cost)	
+                    player[this.layer].points = player[this.layer].points.sub(cost)
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
                 },
@@ -223,7 +223,7 @@ addLayer("c", {
                 second: {
                     content: [["upgrade", 11],
                             ["row", [["upgrade", 11], "blank", "blank", ["upgrade", 11],]],
-                        
+
                         ["display-text", function() {return "double confirmed"}]]
                 },
             },
@@ -304,7 +304,7 @@ addLayer("c", {
             thingies: {
                 style() {return  {'background-color': '#222222'}},
                 buttonStyle() {return {'border-color': 'orange'}},
-                content:[ 
+                content:[
                     ["buyables", ""], "blank",
                     ["row", [
                         ["toggle", ["c", "beep"]], ["blank", ["30px", "10px"]], // Width, height
@@ -312,7 +312,7 @@ addLayer("c", {
                         ["column", [
                             ["prestige-button", "", {'width': '150px', 'height': '80px'}],
                             ["prestige-button", "", {'width': '100px', 'height': '150px'}],
-                        ]], 
+                        ]],
                     ], {'width': '600px', 'height': '350px', 'background-color': 'green', 'border-style': 'solid'}],
                     "blank",
                     ["display-image", "discord.png"],],
@@ -331,7 +331,7 @@ addLayer("c", {
                         ["blank", ['0', '50px']], ["bar", "flatBoi"]
                         ]],
                     ]],
-                    "blank", ["display-text", "It's jail because \"bars\"! So funny! Ha ha!"],["tree", testTree], 
+                    "blank", ["display-text", "It's jail because \"bars\"! So funny! Ha ha!"],["tree", testTree],
                 ],
             },
             illuminati: {
@@ -344,11 +344,11 @@ addLayer("c", {
 
         },
         style() {return {
-           //'background-color': '#3325CC' 
+           //'background-color': '#3325CC'
         }},
         nodeStyle() {return { // Style on the layer node
             'color': '#3325CC',
-            'text-decoration': 'underline' 
+            'text-decoration': 'underline'
         }},
         componentStyles: {
             "challenge"() {return {'height': '200px'}},
@@ -377,9 +377,9 @@ addLayer("f", {
         clickables: {[11]: "Start"} // Optional default Clickable state
     }},
     color: "#FE0102",
-    requires() {return new Decimal(10)}, 
-    resource: "farm points", 
-    baseResource: "points", 
+    requires() {return new Decimal(10)},
+    resource: "farm points",
+    baseResource: "points",
     baseAmount() {return player.points},
     type: "static",
     exponent: 0.5,
@@ -388,7 +388,7 @@ addLayer("f", {
     canBuyMax() {return hasAchievement('a', 13)},
 
     row: 1,
-    layerShown() {return true}, 
+    layerShown() {return true},
     branches: ["c"], // When this layer appears, a branch will appear from this layer to any layers here. Each entry can be a pair consisting of a layer id and a color.
 
     tooltipLocked() { // Optional, tooltip displays when the layer is locked
@@ -406,7 +406,7 @@ addLayer("f", {
     getResetGain() {
         return getResetGain(this.layer, useType = "static")
     },
-    getNextAt(canMax=false) { //  
+    getNextAt(canMax=false) { //
         return getNextAt(this.layer, canMax, useType = "static")
     },
     canReset() {
@@ -427,10 +427,10 @@ addLayer("f", {
                 let data = getClickableState(this.layer, this.id)
                 return "Current state:<br>" + data
             },
-            unlocked() { return player[this.layer].unlocked }, 
+            unlocked() { return player[this.layer].unlocked },
             canClick() {
                 return getClickableState(this.layer, this.id) !== "Borkened..."},
-            onClick() { 
+            onClick() {
                 switch(getClickableState(this.layer, this.id)){
                     case "Start":
                         player[this.layer].clickables[this.id] = "A new state!"
@@ -440,7 +440,7 @@ addLayer("f", {
                         break;
                     case "Keep going!":
                         player[this.layer].clickables[this.id] = "Maybe that's a bit too far..."
-                        break;                        
+                        break;
                     case "Maybe that's a bit too far...":
                         player[this.layer].clickables[this.id] = "Borkened..."
                         break;
@@ -460,7 +460,7 @@ addLayer("f", {
                         break;
                     case "Keep going!":
                         return {'background-color': 'orange'}
-                        break;                        
+                        break;
                     case "Maybe that's a bit too far...":
                         return {'background-color': 'red'}
                         break;
@@ -471,7 +471,7 @@ addLayer("f", {
         },
     },
 
-}, 
+},
 )
 
 // A side layer with achievements, with no prestige
@@ -481,7 +481,7 @@ addLayer("a", {
 			points: new Decimal(0),
         }},
         color: "yellow",
-        resource: "achievement power", 
+        resource: "achievement power",
         row: "side",
         tooltip() { // Optional, tooltip displays when the layer is locked
             return ("Achievements")
@@ -511,5 +511,5 @@ addLayer("a", {
                 onComplete() {console.log("Bork bork bork!")}
             },
         },
-    }, 
+    },
 )

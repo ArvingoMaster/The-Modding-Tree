@@ -1,17 +1,17 @@
 var layoutInfo = {
-    startTab: "none",
+    startTab: "d",
 	showTree: true,
+    treeLayout: "",
 
-    treeLayout: ""
 
-    
 }
 
 
 // A "ghost" layer which offsets other layers in the tree
-addNode("blank", {
-    layerShown: "ghost",
-}, 
+addNode("W", {
+    showTree: true,
+
+},
 )
 
 
