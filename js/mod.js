@@ -5,7 +5,7 @@ let modInfo = {
 	pointsName: "energy",
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (100000), // Used for hard resets and new players
+	initialStartPoints: new Decimal (10000), // Used for hard resets and new players
 
 	offlineLimit: 1,  // In hours
 }
