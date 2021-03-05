@@ -2,10 +2,10 @@ let modInfo = {
 	name: "The Minecraft Tree",
 	id: "mymod",
 	author: "Arvin Hormati",
-	pointsName: "enery",
+	pointsName: "energy",
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal (100000), // Used for hard resets and new players
 
 	offlineLimit: 1,  // In hours
 }
